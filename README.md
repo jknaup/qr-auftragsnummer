@@ -1,15 +1,16 @@
-# QR-Code für Auftragsnummern
+# Auftragsnummern als QR-Code
 
-Eine kleine statische Web-App: Auftragsnummer eingeben, QR-Code anzeigen, herunterladen oder drucken. Kein Build-Schritt und kein Backend erforderlich.
+Eine mobil optimierte, statische Web-App für den schnellen Einsatz auf dem Smartphone. Auftragsnummern werden in einer Liste auf dem Gerät gespeichert. Ein Tipp auf einen Eintrag öffnet den QR-Code bildschirmfüllend.
 
-## GitHub Pages aktivieren
+## Auf GitHub Pages verwenden
 
-1. In GitHub **Settings → Pages → Build and deployment → Source** die Option **GitHub Actions** wählen.
-2. Auf `main` pushen. Der Workflow veröffentlicht die Seite automatisch.
-3. Die URL findest du unter **Settings → Pages**.
+Die vorhandene GitHub-Actions-Konfiguration veröffentlicht Änderungen aus `main`. Die URL findest du unter **Settings → Pages**. Auf dem Handy kannst du die Seite im Browser öffnen und bei Bedarf zum Home-Bildschirm hinzufügen.
 
-## Verwendung
+## Bedienung
 
-`index.html` öffnen oder die Pages-URL aufrufen, Auftragsnummer eingeben und **QR-Code erstellen** wählen. Mehrere Nummern können zeilenweise eingegeben werden; pro Klick wird die Eingabe als ein QR-Code codiert.
+1. Auftragsnummer ins Eingabefeld schreiben und **Hinzufügen** tippen.
+2. Den Auftrag in der Liste antippen, um den QR-Code groß anzuzeigen.
+3. Über **Zurück** oder die Zurück-Geste wieder zur Liste wechseln.
+4. Nicht mehr benötigte Einträge über **×** löschen.
 
-Die QR-Grafik wird über `api.qrserver.com` geladen. Die Auftragsnummer wird dazu an diesen externen Dienst gesendet. Für rein lokale Generierung kann die QR-Bibliothek später direkt im Projekt mitgeführt werden.
+Die Auftragsliste bleibt im lokalen Speicher dieses Browsers auf diesem Gerät. Sie wird nicht zwischen Geräten synchronisiert. Für das QR-Bild wird die Auftragsnummer an `api.qrserver.com` übertragen.
