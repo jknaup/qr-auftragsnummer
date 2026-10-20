@@ -2,43 +2,60 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#123b35">
-  <title>Auftragsnummer als QR-Code</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f7f3">
+  <title>Auftragsnummern · QR-Code</title>
   <style>
-    :root{color-scheme:light;--ink:#172b27;--muted:#65736e;--green:#176b55;--paper:#f3f6f2;--line:#dce5df;--white:#fff}
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(140deg,#e9f1e9,#f8f8f3 50%,#e7eee8);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
-    main{width:min(100% - 32px,760px);margin:7vh auto}.brand{font-size:.85rem;font-weight:750;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}h1{font-size:clamp(2rem,6vw,3.25rem);line-height:1.08;letter-spacing:-.045em;margin:.45rem 0 .75rem}.intro{color:var(--muted);margin:0 0 2rem;max-width:55ch}
-    .card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,5vw,36px);box-shadow:0 18px 55px #173b2910}.label{display:block;font-weight:700;margin-bottom:8px}textarea{display:block;width:100%;resize:vertical;min-height:110px;border:1px solid #cbd7cf;border-radius:12px;padding:14px;font:inherit;color:var(--ink);outline:none}textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #176b551c}.hint{font-size:.88rem;color:var(--muted);margin:7px 0 18px}.actions{display:flex;gap:10px;flex-wrap:wrap}button{border:0;border-radius:10px;padding:11px 17px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--green);color:white}.primary:hover{background:#105541}.secondary{background:#edf2ed;color:var(--ink)}button:focus-visible{outline:3px solid #76bca4;outline-offset:2px}
-    .result{margin-top:24px;border-top:1px solid var(--line);padding-top:24px;display:grid;grid-template-columns:minmax(160px,220px) 1fr;gap:22px;align-items:center}.result[hidden]{display:none}.qr{width:100%;aspect-ratio:1;display:grid;place-items:center;background:white;border:1px solid var(--line);border-radius:14px;padding:12px}.qr img{width:100%;height:100%;object-fit:contain}.result h2{font-size:1.15rem;margin:0 0 5px}.order{font-size:1.1rem;font-weight:750;overflow-wrap:anywhere}.privacy{font-size:.86rem;color:var(--muted);margin-top:24px}.error{color:#a32828;font-weight:600;margin:10px 0 0}.footer{margin:18px 4px;color:var(--muted);font-size:.84rem}@media(max-width:560px){main{margin:32px auto}.result{grid-template-columns:1fr}.qr{width:min(100%,250px);margin:auto}}
+    :root{color-scheme:light;--ink:#172b27;--muted:#68756f;--green:#176b55;--green-dark:#105541;--line:#dce5df;--paper:#f4f7f3;--white:#fff;--danger:#a83232;--safe-bottom:env(safe-area-inset-bottom,0px)}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper)}button,input{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible{outline:3px solid #78bda6;outline-offset:2px}
+    .app{width:min(100%,640px);margin:0 auto;min-height:100dvh;padding:calc(18px + env(safe-area-inset-top,0px)) 18px calc(28px + var(--safe-bottom))}.brand{font-size:.76rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--green)}h1{font-size:clamp(1.8rem,8vw,2.5rem);line-height:1.08;letter-spacing:-.045em;margin:7px 0 6px}.intro{color:var(--muted);margin:0 0 22px}
+    .entry{display:flex;gap:9px;align-items:stretch;margin-bottom:22px}.entry input{min-width:0;flex:1;border:1px solid #cbd7cf;border-radius:14px;padding:14px;background:#fff;color:var(--ink);font-size:1.05rem}.add{border:0;border-radius:14px;background:var(--green);color:white;font-weight:750;padding:0 19px;min-width:76px}.add:active{background:var(--green-dark);transform:scale(.98)}
+    .list-head{display:flex;justify-content:space-between;align-items:center;margin:0 2px 9px}.list-head h2{font-size:1rem;margin:0}.count{color:var(--muted);font-size:.88rem}.list{display:grid;gap:9px}.item{display:flex;align-items:stretch;gap:8px}.open-item{min-width:0;flex:1;display:flex;align-items:center;gap:13px;text-align:left;padding:15px;border:1px solid var(--line);border-radius:15px;background:var(--white);color:var(--ink);box-shadow:0 2px 8px #173b2906}.open-item:active{background:#eef5ef;transform:scale(.995)}.qr-icon{width:40px;height:40px;flex:none;border-radius:11px;background:#e8f2ec;display:grid;place-items:center;color:var(--green);font-size:1.4rem}.label-wrap{min-width:0;flex:1}.order{display:block;font-weight:750;font-size:1rem;overflow-wrap:anywhere}.tap-hint{display:block;color:var(--muted);font-size:.79rem;margin-top:2px}.chevron{font-size:1.4rem;color:#819088}.delete{width:46px;flex:none;border:1px solid var(--line);border-radius:14px;background:white;color:var(--muted);font-size:1.1rem}.delete:active{color:var(--danger);background:#fff1f1}.empty{padding:30px 18px;text-align:center;border:1px dashed #cbd7cf;border-radius:16px;color:var(--muted);background:#ffffff80}.empty strong{display:block;color:var(--ink);margin-bottom:4px}.privacy{font-size:.78rem;color:var(--muted);margin:22px 2px 0}
+    .viewer[hidden]{display:none}.viewer{position:fixed;z-index:10;inset:0;background:#fff;display:flex;flex-direction:column;padding:calc(8px + env(safe-area-inset-top,0px)) 14px calc(14px + var(--safe-bottom));min-height:100dvh}.viewer-bar{display:flex;align-items:center;gap:12px;min-height:52px}.back{border:0;background:#eef3ef;width:44px;height:44px;border-radius:50%;font-size:1.35rem;color:var(--ink)}.viewer-number{font-size:1rem;font-weight:750;overflow-wrap:anywhere;min-width:0}.viewer-main{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px 0 16px}.viewer-qr{display:block;max-width:min(100%,calc(100dvh - 150px));max-height:100%;width:min(100%,calc(100dvh - 150px));height:auto;aspect-ratio:1;object-fit:contain;image-rendering:auto}.viewer-error{align-self:center;color:var(--danger);text-align:center;max-width:30ch}.viewer-actions{display:flex;justify-content:center;padding-bottom:4px}.share{border:0;background:#eef3ef;color:var(--ink);border-radius:12px;padding:11px 18px;font-weight:700}
+    body.showing{overflow:hidden}@media(min-width:700px){.app{padding-top:36px}.viewer{padding-left:max(24px,calc((100vw - 640px)/2));padding-right:max(24px,calc((100vw - 640px)/2))}}
   </style>
 </head>
 <body>
-<main>
-  <div class="brand">Auftragshelfer</div>
-  <h1>Auftragsnummer als QR-Code</h1>
-  <p class="intro">Auftragsnummer eingeben und den QR-Code direkt anzeigen oder ausdrucken. Funktioniert ohne Konto und ohne Installation.</p>
-  <section class="card" aria-label="QR-Code erstellen">
-    <label class="label" for="orderNumber">Auftragsnummer</label>
-    <textarea id="orderNumber" placeholder="z. B. AU-2026-00123" autocomplete="off" autofocus></textarea>
-    <p class="hint">Mehrere Nummern: jeweils eine pro Zeile eingeben.</p>
-    <div class="actions"><button class="primary" id="create">QR-Code erstellen</button><button class="secondary" id="clear" type="button">Leeren</button></div>
-    <p class="error" id="error" role="alert" hidden></p>
-    <div class="result" id="result" hidden>
-      <div class="qr"><img id="qrImage" alt="QR-Code für die Auftragsnummer"></div>
-      <div><h2>QR-Code erstellt</h2><div class="order" id="shownOrder"></div><p class="hint">Der Code enthält genau diese Auftragsnummer.</p><div class="actions"><button class="secondary" id="download" type="button">QR-Code herunterladen</button><button class="secondary" id="print" type="button">Drucken</button></div></div>
-    </div>
+  <main class="app">
+    <div class="brand">Auftragshelfer</div>
+    <h1>Auftragsnummern</h1>
+    <p class="intro">Nummer eintragen. Zum Anzeigen des QR-Codes einfach den Auftrag antippen.</p>
+    <form class="entry" id="entryForm" autocomplete="off">
+      <input id="orderInput" type="text" enterkeyhint="done" placeholder="Auftragsnummer eingeben" aria-label="Auftragsnummer">
+      <button class="add" type="submit">Hinzufügen</button>
+    </form>
+    <div class="list-head"><h2>Gespeicherte Aufträge</h2><span class="count" id="count"></span></div>
+    <section class="list" id="orderList" aria-live="polite"></section>
+    <p class="privacy">Die Aufträge bleiben auf diesem Gerät gespeichert. Zum Erzeugen des QR-Codes wird die Auftragsnummer an einen externen QR-Dienst übermittelt.</p>
+  </main>
+  <section class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="QR-Code der Auftragsnummer" hidden>
+    <header class="viewer-bar"><button class="back" id="closeViewer" aria-label="Zurück zur Auftragsliste">‹</button><div class="viewer-number" id="viewerNumber"></div></header>
+    <div class="viewer-main"><img class="viewer-qr" id="viewerQr" alt="QR-Code"><div class="viewer-error" id="viewerError" hidden>Der QR-Code konnte nicht geladen werden. Bitte Internetverbindung prüfen.</div></div>
+    <div class="viewer-actions"><button class="share" id="shareButton" type="button">Teilen oder speichern</button></div>
   </section>
-  <p class="privacy">Datenschutz: Die eingegebene Nummer wird nicht gespeichert. Zur Erstellung des QR-Bildes wird sie an einen QR-Code-Dienst übermittelt.</p>
-  <p class="footer">Für interne oder vertrauliche Auftragsnummern bitte keine personenbezogenen Daten eingeben.</p>
-</main>
 <script>
-  const input=document.querySelector('#orderNumber'), result=document.querySelector('#result'), image=document.querySelector('#qrImage'), error=document.querySelector('#error');
-  function generate(){const value=input.value.trim();error.hidden=true;if(!value){error.textContent='Bitte gib eine Auftragsnummer ein.';error.hidden=false;result.hidden=true;input.focus();return}image.src='https://api.qrserver.com/v1/create-qr-code/?size=500x500&format=png&data='+encodeURIComponent(value);image.alt='QR-Code für '+value;document.querySelector('#shownOrder').textContent=value;result.hidden=false}
-  document.querySelector('#create').addEventListener('click',generate);input.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')generate()});
-  document.querySelector('#clear').addEventListener('click',()=>{input.value='';result.hidden=true;error.hidden=true;input.focus()});
-  document.querySelector('#print').addEventListener('click',()=>window.print());
-  document.querySelector('#download').addEventListener('click',async()=>{try{const response=await fetch(image.src);if(!response.ok)throw new Error();const blob=await response.blob();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='qr-auftragsnummer.png';a.click();URL.revokeObjectURL(url)}catch{error.textContent='Download nicht möglich. Du kannst den Code über „Drucken“ speichern.';error.hidden=false}});
+  const STORAGE_KEY='qr-auftragsnummer-orders-v1';
+  const input=document.querySelector('#orderInput');
+  const list=document.querySelector('#orderList');
+  const count=document.querySelector('#count');
+  const viewer=document.querySelector('#viewer');
+  const viewerNumber=document.querySelector('#viewerNumber');
+  const viewerQr=document.querySelector('#viewerQr');
+  const viewerError=document.querySelector('#viewerError');
+  let orders=loadOrders();
+  let activeOrder='';
+  function loadOrders(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(value)?value.filter(x=>x&&typeof x.id==='string'&&typeof x.number==='string'):[]}catch{return []}}
+  function saveOrders(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(orders))}catch{alert('Speichern ist auf diesem Gerät nicht möglich. Bitte Speicherplatz prüfen.')}}
+  function render(){list.replaceChildren();count.textContent=orders.length+' '+(orders.length===1?'Eintrag':'Einträge');if(!orders.length){const empty=document.createElement('div');empty.className='empty';empty.innerHTML='<strong>Noch keine Auftragsnummer</strong>Oben eine Nummer eintragen und auf „Hinzufügen“ tippen.';list.append(empty);return}for(const entry of [...orders].reverse()){const row=document.createElement('div');row.className='item';const open=document.createElement('button');open.type='button';open.className='open-item';open.setAttribute('aria-label','QR-Code für '+entry.number+' anzeigen');const icon=document.createElement('span');icon.className='qr-icon';icon.setAttribute('aria-hidden','true');icon.textContent='▦';const wrap=document.createElement('span');wrap.className='label-wrap';const number=document.createElement('span');number.className='order';number.textContent=entry.number;const hint=document.createElement('span');hint.className='tap-hint';hint.textContent='Antippen, um QR-Code zu öffnen';wrap.append(number,hint);const arrow=document.createElement('span');arrow.className='chevron';arrow.setAttribute('aria-hidden','true');arrow.textContent='›';open.append(icon,wrap,arrow);open.addEventListener('click',()=>showOrder(entry.number));const del=document.createElement('button');del.type='button';del.className='delete';del.setAttribute('aria-label','Auftragsnummer '+entry.number+' löschen');del.textContent='×';del.addEventListener('click',()=>{orders=orders.filter(x=>x.id!==entry.id);saveOrders();render()});row.append(open,del);list.append(row)}}
+  function addOrder(value){const number=value.trim();if(!number){input.focus();return}orders.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random(),number});saveOrders();render();input.value='';input.focus()}
+  function showOrder(number){activeOrder=number;viewerNumber.textContent=number;viewerQr.hidden=false;viewerError.hidden=true;viewerQr.src='https://api.qrserver.com/v1/create-qr-code/?size=1200x1200&format=png&margin=12&data='+encodeURIComponent(number);viewerQr.alt='QR-Code für '+number;viewerQr.onload=()=>{viewerQr.hidden=false;viewerError.hidden=true};viewerQr.onerror=()=>{viewerQr.hidden=true;viewerError.hidden=false};viewer.hidden=false;document.body.classList.add('showing');document.querySelector('#closeViewer').focus();if(location.hash!=='#qr')history.pushState({qr:true},'',location.pathname+location.search+'#qr')}
+  function closeViewer(){viewer.hidden=true;document.body.classList.remove('showing');viewerQr.removeAttribute('src');if(location.hash==='#qr')history.back();input.blur()}
+  document.querySelector('#entryForm').addEventListener('submit',event=>{event.preventDefault();addOrder(input.value)});
+  document.querySelector('#closeViewer').addEventListener('click',closeViewer);
+  window.addEventListener('popstate',()=>{if(!viewer.hidden){viewer.hidden=true;document.body.classList.remove('showing');viewerQr.removeAttribute('src')}});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!viewer.hidden)closeViewer()});
+  document.querySelector('#shareButton').addEventListener('click',async()=>{if(!activeOrder)return;try{const response=await fetch(viewerQr.src);if(!response.ok)throw new Error();const blob=await response.blob();const file=new File([blob],'qr-'+activeOrder.replace(/[^a-z0-9-_]/gi,'_')+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'QR-Code '+activeOrder})}else{const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=file.name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}}catch{alert('Teilen oder Speichern ist auf diesem Gerät nicht verfügbar. Du kannst einen Screenshot aufnehmen.')}});
+  render();
 </script>
 </body>
 </html>
